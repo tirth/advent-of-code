@@ -1,4 +1,4 @@
-from strscans import scanf
+from std/strscans import scanf
 
 proc getDimensions(dimensions: string): tuple[l: int, w: int, h: int] =
     var l, w, h: int

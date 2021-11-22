@@ -1,5 +1,5 @@
-from strformat import fmt
-from md5 import getMD5
+from std/strformat import fmt
+from std/md5 import getMD5
 
 proc findHash(input: string, searchPrefix: string): int = 
     for i in 1..100_000_000:

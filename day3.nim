@@ -1,4 +1,4 @@
-import critbits
+import std/critbits
 
 proc updateLocation(direction: char, location: var tuple[x: int, y: int]) = 
     case direction

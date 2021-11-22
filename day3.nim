@@ -2,10 +2,10 @@ import critbits
 
 proc updateLocation(direction: char, location: var tuple[x: int, y: int]) = 
     case direction
-    of '^': inc(location.y)
-    of 'v': dec(location.y)
-    of '>': inc(location.x)
-    of '<': dec(location.x)
+    of '^': inc location.y
+    of 'v': dec location.y
+    of '>': inc location.x
+    of '<': dec location.x
     else: discard
 
 proc housesVisited(directions: string): int =
@@ -15,7 +15,6 @@ proc housesVisited(directions: string): int =
 
     for direction in directions:
         updateLocation(direction, location)
-
         visited.incl($location)
 
     return visited.len()

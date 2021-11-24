@@ -44,7 +44,7 @@ proc roboHousesVisited(directions: string): int =
 
     return visited.len()
 
-let directions = readFile("day3_input.txt")
+let directions = readFile("input/day3.txt")
 
 echo housesVisited(directions)
 echo roboHousesVisited(directions)

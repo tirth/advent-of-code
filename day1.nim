@@ -19,7 +19,7 @@ proc getPositionInBasement(directions: string): int =
      
     return -1
 
-let directions = readFile("day1_input.txt")
+let directions = readFile("input/day1.txt")
 
 echo getFloor(directions)
 echo getPositionInBasement(directions)

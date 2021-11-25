@@ -23,18 +23,19 @@ proc calcHappiness(guests: seq[string], prefs: seq[Pref]): int =
 
         result += (prevHappy + nextHappy)
 
+proc calcMaxHappiness(guests: var seq[string], prefs: seq[Pref]): int =
+    guests.sort()
+
+    result = calcHappiness(guests, prefs)
+    while guests.nextPermutation:
+        result = max(result, calcHappiness(guests, prefs))
+
 var preferences: seq[Pref]
 for line in "input/day13.txt".lines:
     preferences.add(parsePreference(line))
 
 var guests = preferences.mapIt(it.person).deduplicate
-guests.sort()
-
-var maxHappiness = calcHappiness(guests, preferences)
-while guests.nextPermutation:
-    maxHappiness = max(maxHappiness, calcHappiness(guests, preferences))
-
-echo maxHappiness
+echo calcMaxHappiness(guests, preferences)
 
 const me = "Me"
 
@@ -43,10 +44,4 @@ for guest in guests:
     preferences.add((me, guest, 0))
 
 guests.add(me)
-guests.sort()
-
-maxHappiness = calcHappiness(guests, preferences)
-while guests.nextPermutation:
-    maxHappiness = max(maxHappiness, calcHappiness(guests, preferences))
-
-echo maxHappiness
+echo calcMaxHappiness(guests, preferences)

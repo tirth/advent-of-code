@@ -28,10 +28,8 @@ proc sumJson(node: JsonNode, skipRed: bool): BiggestInt =
 
         for key, val in node.fields.pairs:
             result += sumJson(val, skipRed)
-    of JBool: discard
-    of JString: discard
-    of JFloat: discard
-    of JNull: discard
+    of JBool, JString, JFloat, JNull: 
+        discard
 
 let input = "input/day12.txt".readFile
 

@@ -53,7 +53,7 @@ proc iterateLights(lights: Lights, cornerStuck: bool = false): Lights =
 
 
 var lights: Lights
-for line in "input/day18.txt".lines:
+for line in "../input/day18.txt".lines:
     var row: seq[bool]
     for light in line:
         row.add(light == '#')

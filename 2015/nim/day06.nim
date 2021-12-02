@@ -72,7 +72,7 @@ proc processLightsFancy(lights: var LightGrid, input: Input) =
 var lights: LightGrid
 var fancyLights: LightGrid
 
-for instruction in "input/day6.txt".lines:
+for instruction in "../input/day6.txt".lines:
     let input = parseInput(instruction)
 
     processLights(lights, input)

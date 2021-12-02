@@ -39,7 +39,7 @@ let criteria = {
 }.toTable
 
 var sues: seq[Sue]
-for line in "input/day16.txt".lines:
+for line in "../input/day16.txt".lines:
     sues.add(parseSue(line))
 
 var part1, part2: Sue

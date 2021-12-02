@@ -73,7 +73,7 @@ iterator choose[T](things: openArray[T], num: int): seq[T] =
 var weapons, armour, rings: seq[ItemStats]
 
 var section: string
-for line in "input/day21_shop.txt".lines:
+for line in "../input/day21_shop.txt".lines:
     if line.isEmptyOrWhitespace:
         section = ""
         continue

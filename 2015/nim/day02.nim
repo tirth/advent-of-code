@@ -28,7 +28,7 @@ proc calculateRibbonSize(dimensions: string): int =
     return l * w * h + smallestPerimeter
 
 var totalPaper, totalRibbon = 0
-for giftSize in "input/day2.txt".lines:
+for giftSize in "../input/day2.txt".lines:
     totalPaper += calculatePaperSize(giftSize)
     totalRibbon += calculateRibbonSize(giftSize)
 

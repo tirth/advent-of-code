@@ -31,7 +31,7 @@ proc calcMaxHappiness(guests: var seq[string], prefs: seq[Pref]): int =
         result = max(result, calcHappiness(guests, prefs))
 
 var preferences: seq[Pref]
-for line in "input/day13.txt".lines:
+for line in "../input/day13.txt".lines:
     preferences.add(parsePreference(line))
 
 var guests = preferences.mapIt(it.person).deduplicate

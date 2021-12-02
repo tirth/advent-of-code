@@ -50,7 +50,7 @@ proc isNiceNewRe(input: string): bool =
     return input.contains(doublePair) and input.contains(infixLetter)
 
 var niceCount, niceCountNew = 0
-for line in "input/day5.txt".lines:
+for line in "../input/day5.txt".lines:
     if isNiceRe(line):
         inc niceCount
 

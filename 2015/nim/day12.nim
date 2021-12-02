@@ -31,7 +31,7 @@ proc sumJson(node: JsonNode, skipRed: bool): BiggestInt =
     of JBool, JString, JFloat, JNull: 
         discard
 
-let input = "input/day12.txt".readFile
+let input = "../input/day12.txt".readFile
 
 # echo sumNumbers(input)
 

@@ -61,7 +61,7 @@ proc visitCities(cities: Table[string, City]) =
 
                 echo travel
 
-for line in "input/day9.txt".lines:
+for line in "../input/day9.txt".lines:
     let route = parseRoute(line)
     addRoute(route.start, route.dest, route.distance)
 

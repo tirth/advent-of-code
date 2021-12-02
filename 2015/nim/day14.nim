@@ -32,7 +32,7 @@ proc getDistanceAt(seconds: int, reindeer: Reindeer): int =
 
 var reindeer: seq[Reindeer]
 
-for line in "input/day14.txt".lines:
+for line in "../input/day14.txt".lines:
     reindeer.add(parseReindeer(line))
 
 const raceTime = 2503

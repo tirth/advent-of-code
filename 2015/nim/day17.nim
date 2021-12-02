@@ -13,7 +13,7 @@ proc combinationsWhere(values: seq[int], useResult: proc(res: seq[int]): bool): 
         if useResult(res):
             result.add(res)
 
-let input = readFile("input/day17.txt").splitLines.map(parseInt)
+let input = readFile("../input/day17.txt").splitLines.map(parseInt)
 
 let combos = combinationsWhere(input, res => res.sum == 150)
 echo combos.len

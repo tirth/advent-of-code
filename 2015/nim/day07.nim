@@ -38,7 +38,7 @@ proc processInstruction(instruction: string) =
 var current = -1;
 var successful: HashSet[int]
 
-var inst = readFile("input/day7.txt").splitLines()
+var inst = readFile("../input/day7.txt").splitLines()
 while successful.len != inst.len:
     inc current
 

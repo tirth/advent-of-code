@@ -22,7 +22,7 @@ proc searchByCriteria(nums: seq[BitList], byMostCommon: bool = true): BitList =
     var searchNums = nums
     for i in 0..nums[0].high:
         let counts = searchNums.getCountsAt(i)
-        
+
         let keep = if counts[0] > counts[1]: (if byMostCommon: 0 else: 1) else: (if byMostCommon: 1 else: 0)
 
         var kept: seq[BitList]
@@ -31,7 +31,6 @@ proc searchByCriteria(nums: seq[BitList], byMostCommon: bool = true): BitList =
                 kept.add(num)
 
         searchNums = kept
-
         if searchNums.len == 1:
             break
 

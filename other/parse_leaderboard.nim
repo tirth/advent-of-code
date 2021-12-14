@@ -1,6 +1,7 @@
-import json, tables, options, algorithm, times, strutils, strformat, terminal, sequtils
+import json, tables, options, algorithm, times, strutils, strformat, terminal, sequtils, os, httpclient
 
 const emptyDur = initDuration(0)
+const fileUpdateDur = initDuration(hours=12)
 const highlight_name = "tirth"
 
 type
@@ -72,7 +73,32 @@ proc getDayInfo(leaderboard: Leaderboard): Table[int, tuple[part1, part2: seq[In
                 let part2Time = part2Info.get.get_star_ts.fromUnix
                 result[dayNum].part2.add((info.name, part2Time - start, part2Time - part1Time))
 
-let leaderboard = "private_leaderboard_2021.json".readFile.parseJson.to(Leaderboard)
+proc getLeaderboard(boardType: string, forceUpdate: bool = false): Leaderboard =
+    let fileName = fmt"{boardType}_leaderboard_2021.json"
+
+    let download = forceUpdate or 
+                (not fileName.fileExists) or 
+                ((now().toTime - fileName.getFileInfo.lastWriteTime) > fileUpdateDur)
+
+    if download:
+        echo fmt"downloading {boardType}"
+
+        let session = "session.txt".readFile
+        var client = newHttpClient(headers=newHttpHeaders({"cookie": fmt"session={session}"}))
+
+        var boardId = -1
+        case boardType
+        of "private":
+            boardId = 1510045
+        of "nim":
+            boardId = 681448
+
+        let data = client.getContent(fmt"https://adventofcode.com/2021/leaderboard/private/view/{boardId}.json")
+        fileName.writeFile(data)
+
+    fileName.readFile.parseJson.to(Leaderboard)
+
+let leaderboard = getLeaderboard("nim")
 
 let dayInfo = leaderboard.getDayInfo
 for day in dayInfo.keys.toSeq.sortedByIt(it):

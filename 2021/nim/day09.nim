@@ -1,4 +1,4 @@
-import strutils, sequtils, sets, math, strformat, algorithm
+import strutils, sequtils, sets, math, strformat, algorithm, deques
 
 type
     Cell = tuple[row, col: int]
@@ -30,15 +30,29 @@ iterator getNeighbourVals(row, col: int): CellVal =
     for r, c in getNeighbours(row, col):
         yield (r, c, g[r][c])
 
-# TODO: recurse properly
-var basinPoints: HashSet[string]
-
-proc getBasin(row, col: int) =
+proc getBasin(row, col: int, basinPoints: var HashSet[string]) =
     basinPoints.incl(fmt"{row},{col}")
 
     for (r, c, v) in getNeighbourVals(row, col):
         if v != 9 and fmt"{r},{c}" notin basinPoints:
-            getBasin(r, c)
+            getBasin(r, c, basinPoints)
+
+proc getBasinDfs(row, col: int): int =
+    var 
+        visited: HashSet[Cell]
+        stack: Deque[Cell] = [(row, col)].toDeque
+ 
+    while stack.len > 0:
+        let curr = stack.popFirst
+        if curr notin visited:
+            visited.incl(curr)
+ 
+            if g[curr.row][curr.col] != 9:
+                inc result
+ 
+                for n in getNeighbours(curr.row, curr.col):
+                    if n notin visited:
+                        stack.addFirst(n)
 
 var lowPoints, basinSizes: seq[int]
 
@@ -51,12 +65,12 @@ for row in 0..g.high:
     
         lowPoints.add(val)
 
-        getBasin(row, col)
+        # var basinPoints = initHashSet[string](g.len * g.len)
+        # getBasin(row, col, basinPoints)
+        # let basinSize = basinPoints.len
 
-        let basinSize = basinPoints.len
+        let basinSize = getBasinDfs(row, col)
         basinSizes.insert(basinSize, basinSizes.lowerBound(basinSize))
-
-        basinPoints.clear()
 
 echo lowPoints.sum + lowPoints.len
 echo basinSizes[^3..^1].foldl(a * b)
